@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "es2020",                 // modern JS runtime
+    "module": "commonjs",               // Node-style imports
+    "outDir": "dist",                   // compiled files
+    "rootDir": "src",                   // source files
+    "strict": true,                     // enable all strict checks
+    "esModuleInterop": true,            // allow default imports
+    "skipLibCheck": true,               // speed up builds
+    "forceConsistentCasingInFileNames": true
+  }
+}
