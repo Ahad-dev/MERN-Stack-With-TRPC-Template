@@ -24,11 +24,13 @@ import { cn } from "@/lib/utils";
 import { DropdownMenuLabel } from "@radix-ui/react-dropdown-menu";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Button } from "@/components/ui/button";
+import { authClient } from "@/lib/auth";
+import { useNavigate } from "react-router";
 
 interface UserDropDownProps {
-  email: string;
-  plan: string;
-  name: string;
+  email?: string;
+  plan?: string;
+  name?: string;
   avatarUrl?: string;
 }
 
@@ -40,7 +42,21 @@ const UserDropDown = ({
 }: UserDropDownProps) => {
   const { state } = useSidebar();
   const isMobile = useIsMobile();
+  const navigate = useNavigate();
+  
   console.log(isMobile);
+
+  const handleLogout = async() => {
+    console.log("Logging out...");
+    // Implement logout logic here
+    await authClient.signOut({
+      fetchOptions:{
+        onSuccess:()=>{
+          navigate('/sign-up');
+        }
+      }
+    });
+  }
 
   // If the user is on a mobile device the use Drawer
   if (isMobile) {
@@ -55,7 +71,7 @@ const UserDropDown = ({
           )}
         >
           <img
-            src="/logo.png"
+            src={avatarUrl} // Use the avatarUrl prop or a default image
             alt="User Avatar"
             className="w-8 h-8 rounded-full"
           />
@@ -88,7 +104,7 @@ const UserDropDown = ({
               <Settings2 className="size-4 mr-2" />
               Settings
             </Button>
-            <Button variant="ghost" className="w-full justify-start">
+            <Button variant="ghost" className="w-full justify-start" onClick = {handleLogout}>
               <LogOut className="size-4 mr-2" />
               Logout
             </Button>
@@ -108,7 +124,7 @@ const UserDropDown = ({
         )}
       >
         <img
-          src="/logo.png"
+          src={avatarUrl} // Use the avatarUrl prop or a default image
           alt="User Avatar"
           className="w-8 h-8 rounded-full"
         />
@@ -141,7 +157,16 @@ const UserDropDown = ({
         <DropdownMenuItem>Profile</DropdownMenuItem>
         <DropdownMenuItem>Settings</DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Logout</DropdownMenuItem>
+        <DropdownMenuItem>
+          <Button
+            variant="ghost"
+            className="w-full justify-start"
+            onClick={handleLogout}
+          >
+            <LogOut className="size-4 mr-2" />
+            Logout
+          </Button>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

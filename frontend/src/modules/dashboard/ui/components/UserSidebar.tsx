@@ -20,6 +20,7 @@ import {
 import { Link, useLocation, useParams } from "react-router";
 import { cn } from "@/lib/utils";
 import UserDropDown from "./user-dropdown";
+import { authClient } from "@/lib/auth";
 
 const MENU_ITEMS = [
   {
@@ -47,6 +48,7 @@ const MENU_ITEMS = [
 const UserSidebar = () => {
     const location = useLocation();
     const {state}  = useSidebar()
+    const {data:session} = authClient.useSession();
     console.log("Current location:", location.pathname);
   return (
     <Sidebar collapsible="icon" variant="sidebar" className="border">
@@ -81,10 +83,10 @@ const UserSidebar = () => {
     //    className={`ml-4 mb-3 ${state === "collapsed" ? "ml-0" : ""}`}
        >
         <UserDropDown
-            email="muhammadahad21126@gmail.com"
-            name="Muhammad Ahad"
+            email={session?.user.email}
+            name={session?.user.name}
             plan="Premium"
-
+            avatarUrl={session?.user.image || "/logo.png"} // Default avatar URL
         />
       </SidebarFooter>
     </Sidebar>
