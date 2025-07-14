@@ -2,15 +2,17 @@
 import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { connectDB } from "../config/connectDB";
+import dotenv from "dotenv";
+dotenv.config();
 
 export const createAuth = async () => {
   const db = await connectDB();
   return betterAuth({
-    trustedOrigins: ["http://localhost:5173"],
+    trustedOrigins: [process.env.CLIENT_URL],
     socialProviders: {
         google: { 
-            clientId: "199302201802-mmdd18mairb8hqh5si6t1k10q6kjfuab.apps.googleusercontent.com", 
-            clientSecret: "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", 
+            clientId: process.env.GOOGLE_CLIENT_ID, 
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET, 
         }, 
     },
     database: mongodbAdapter(db),

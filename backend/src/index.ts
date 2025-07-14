@@ -2,19 +2,17 @@ import express, { Request, Response } from 'express';
 import * as trpcExpress from '@trpc/server/adapters/express';
 import { appRouter } from './trpc/app';
 import cors from 'cors';
-import { env } from './config/env';
-import { connectDB } from './config/connectDB';
 import { createAuth } from './lib/auth';
 import { toNodeHandler } from 'better-auth/node';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
-
-// connectDB(); // Uncomment when needed
+const PORT = process.env.PORT;
 
 // middleware
 app.use(cors({
-  origin: env.CLIENT_URL,
+  origin: process.env.CLIENT_URL,
   credentials: true,
 }));
 // app.use(express.json());
@@ -41,7 +39,7 @@ app.use(cors({
       res.send('🟢 Server is running!');
     });
 
-    app.listen(env.PORT, () => {
+    app.listen(process.env.PORT, () => {
       console.log(`🚀 Server listening on http://localhost:${PORT}`);
     });
 
