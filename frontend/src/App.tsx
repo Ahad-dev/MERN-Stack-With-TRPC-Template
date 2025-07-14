@@ -3,7 +3,10 @@ import { createTRPCClient, httpBatchLink } from '@trpc/client';
 import { useState } from 'react';
 import { TRPCProvider } from './utils/trpc';
 import type { AppRouter } from '../../backend/src/trpc/app';
-import User from './components/Users';
+import { Route, Router, Routes } from 'react-router';
+import UserDashboard from './pages/dashboard/page';
+import UserLayout from './pages/Layout';
+import Signup from './pages/sign-up/page';
 
 
 function makeQueryClient() {
@@ -38,15 +41,22 @@ const  App = ()=> {
     createTRPCClient<AppRouter>({
       links: [
         httpBatchLink({
-          url: 'http://localhost:4000/trpc',
+          url: 'http://localhost:3000/trpc',
         }),
       ],
     }),
   );
+
   return (
     <QueryClientProvider client={queryClient}>
       <TRPCProvider trpcClient={trpcClient} queryClient={queryClient}>
-        <User />
+          <Routes>
+            <Route path="/sign-up" element={<Signup />}/>
+            <Route element={<UserLayout />}>
+              <Route path="/" element={<UserDashboard />} />
+              <Route path="/users" element={<p>Users</p>} />
+            </Route>
+          </Routes>
       </TRPCProvider>
     </QueryClientProvider>
   );
