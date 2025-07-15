@@ -7,6 +7,9 @@ declare namespace NodeJS {
     BETTER_AUTH_SECRET:string
     BETTER_AUTH_URL:string
     GOOGLE_CLIENT_ID:string
-    GOOGLE_CLIENT_SECRET:string
+    GOOGLE_CLIENT_SECRET:string,
+    GMAIL_REFRESH_TOKEN:string,
+    EMAIL_USER:string,
+    GMAIL_APP_PASSWORD:string,
   }
 }
