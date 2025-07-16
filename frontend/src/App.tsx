@@ -3,10 +3,14 @@ import { createTRPCClient, httpBatchLink } from '@trpc/client';
 import { useState } from 'react';
 import { TRPCProvider } from './utils/trpc';
 import type { AppRouter } from '../../backend/src/trpc/app';
-import { Route, Router, Routes } from 'react-router';
+import { Route, Routes } from 'react-router';
 import UserDashboard from './pages/dashboard/page';
-import UserLayout from './pages/Layout';
-import Signup from './pages/sign-up/page';
+import UserLayout from './pages/layout';
+import Signup from './pages/auth/sign-up/page';
+import SignIn from './pages/auth/sign-in/page';
+import ForgotPassword from './pages/auth/forgot-password/forgot-password';
+import ResetPassord from './pages/auth/reset-password/reset-password';
+import { Toaster } from 'sonner';
 
 
 function makeQueryClient() {
@@ -50,8 +54,16 @@ const  App = ()=> {
   return (
     <QueryClientProvider client={queryClient}>
       <TRPCProvider trpcClient={trpcClient} queryClient={queryClient}>
+          <Toaster
+            position="top-right"
+            richColors
+          />
           <Routes>
             <Route path="/sign-up" element={<Signup />}/>
+            <Route path="/sign-in" element={<SignIn />}/>
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassord/>} />
+            {/* Add more routes as needed */}
             <Route element={<UserLayout />}>
               <Route path="/" element={<UserDashboard />} />
               <Route path="/users" element={<p>Users</p>} />
