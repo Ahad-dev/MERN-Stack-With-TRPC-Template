@@ -1,13 +1,7 @@
-import UserDashboard from '@/modules/dashboard/view/dashboard-view'
-import { useTRPC } from '@/utils/trpc';
-import { useQuery } from '@tanstack/react-query';
+import UserDashboard from '@/modules/dashboard/ui/view/dashboard-view'
 
 const page = () => {
-  const trpc = useTRPC();
 
-  const {data} = useQuery(trpc.user.getUser.queryOptions())
-  
-  console.log("User Data:", data);
   return (
     <UserDashboard/>
   )

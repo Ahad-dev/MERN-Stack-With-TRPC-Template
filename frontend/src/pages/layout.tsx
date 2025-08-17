@@ -24,7 +24,6 @@ const Layout = () => {
       <SidebarProvider>
         <UserSidebar/>  
         <main className='flex flex-col h-screen w-screen'>
- 
             <DashboardNavbar/>
             <Outlet/>
         </main>

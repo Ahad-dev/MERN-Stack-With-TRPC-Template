@@ -11,6 +11,8 @@ import SignIn from './pages/auth/sign-in/page';
 import ForgotPassword from './pages/auth/forgot-password/forgot-password';
 import ResetPassord from './pages/auth/reset-password/reset-password';
 import { Toaster } from 'sonner';
+import OrderPage from './pages/orders/page';
+import SettingsPage from './pages/setting/page';
 
 
 function makeQueryClient() {
@@ -67,6 +69,8 @@ const  App = ()=> {
             <Route element={<UserLayout />}>
               <Route path="/" element={<UserDashboard />} />
               <Route path="/users" element={<p>Users</p>} />
+              <Route path="/orders" element={<OrderPage/>} />
+              <Route path="/settings" element={<SettingsPage/>} />
             </Route>
           </Routes>
       </TRPCProvider>

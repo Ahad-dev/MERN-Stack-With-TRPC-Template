@@ -25,7 +25,7 @@ import { DropdownMenuLabel } from "@radix-ui/react-dropdown-menu";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 interface UserDropDownProps {
   email?: string;
@@ -155,7 +155,13 @@ const UserDropDown = ({
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem>Profile</DropdownMenuItem>
-        <DropdownMenuItem>Settings</DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link to={"/settings"} className="flex items-center gap-2">
+          <Settings2 className="size-4 mr-2" />
+          Settings
+          </Link>
+          
+        </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
           <Button

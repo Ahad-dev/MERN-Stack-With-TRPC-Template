@@ -16,6 +16,7 @@ import {
   Users,
   UserPlus2Icon,
   LucideLogOut,
+  ListOrdered,
 } from "lucide-react";
 import { Link, useLocation, useParams } from "react-router";
 import { cn } from "@/lib/utils";
@@ -32,6 +33,11 @@ const MENU_ITEMS = [
     title: "Users",
     icon: Users,
     href: "/users",
+  },
+  {
+    title: "Orders",
+    icon: ListOrdered,
+    href: "/orders",
   },
   {
     title: "Add User",
@@ -51,7 +57,7 @@ const UserSidebar = () => {
     const {data:session} = authClient.useSession();
     console.log("Current location:", location.pathname);
   return (
-    <Sidebar collapsible="icon" variant="sidebar" className="border">
+    <Sidebar collapsible="icon" variant="sidebar" className="border shadow-xl">
       <SidebarHeader className={`ml-4 mt-3 ${state === "collapsed" ? "ml-0" : ""}`}>
         <LogoHeader />
       </SidebarHeader>
